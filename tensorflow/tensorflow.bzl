@@ -558,16 +558,17 @@ def _cuda_copts():
     compiler.  If we're not doing CUDA compilation, returns an empty list.
 
     """
-  return cuda_default_copts() + select({
-      "//conditions:default": [],
-      "@local_config_cuda//cuda:using_nvcc": ([
-          "-nvcc_options=relaxed-constexpr",
-          "-nvcc_options=ftz=true",
-      ]),
-      "@local_config_cuda//cuda:using_clang": ([
-          "-fcuda-flush-denormals-to-zero",
-      ]),
-  })
+#   return cuda_default_copts() + select({
+#       "//conditions:default": [],
+#       "@local_config_cuda//cuda:using_nvcc": ([
+#           "-nvcc_options=relaxed-constexpr",
+#           "-nvcc_options=ftz=true",
+#       ]),
+#       "@local_config_cuda//cuda:using_clang": ([
+#           "-fcuda-flush-denormals-to-zero",
+#       ]),
+#   })
+  return cuda_default_copts() + ["-fcuda-flush-denormals-to-zero"]
 
 
 # Build defs for TensorFlow kernels
